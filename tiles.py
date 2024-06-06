@@ -1,6 +1,6 @@
 class Tiles:
     def __init__(self, pos, move, name) -> None:
-        self.heuristic = 0
+        self.f_val = 0
         self.g_val = 0
         self.pos = pos
         self.move = move

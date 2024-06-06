@@ -10,7 +10,8 @@ class Vehicles:
 class Car(Vehicles):
     def __init__(self, mytype=1, price=10, name='Car') -> None:
         super().__init__(mytype, price, name)
-    
+
+
 class Helicopter(Vehicles):
     def __init__(self, mytype=2, price=30, name='Helicopter') -> None:
         super().__init__(mytype, price, name)
