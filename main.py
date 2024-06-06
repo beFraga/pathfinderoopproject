@@ -8,6 +8,6 @@ class Program:
         maze.console()
         return "\nMapa criado!"
 
-prog = Program
+prog = Program()
 message = prog.run()
 print(message)
