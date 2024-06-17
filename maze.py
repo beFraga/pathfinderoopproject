@@ -34,4 +34,4 @@ newMaze = [
     "HX H"
 ]
 
-types = {"O": startpoint, "X": endpoint, "|": wall, "~": water, "=": bridge, "H": helipoint, "default": floortile}
+types = {"O": startpoint, "X": endpoint, "|": block, "~": water, "=": bridge, "H": helipoint, "default": floortile}

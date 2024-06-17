@@ -7,6 +7,9 @@ class Vehicles:
     def moveFor(self, local):
         print(f'You moved in a(n) {self.name} to {local}')
 
+    def __str__(self):
+        return f'\nType: {self.mytype} | Name: {self.name} | Price: {self.price}/um\n'
+
 
 class Car(Vehicles):
     def __init__(self, mytype=1, price=10, name='Car') -> None:
@@ -19,3 +22,5 @@ class Helicopter(Vehicles):
 
     def moveFor(self, local):
         print(f'You moved for a helipoint and after went to {local}')
+
+allV = [Car(), Helicopter()]
