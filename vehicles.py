@@ -19,3 +19,4 @@ class Helicopter(Vehicles):
     def moveFor(self, local):
         print(f'You moved for a helipoint and after went to {local}')
 
+        
