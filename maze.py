@@ -2,10 +2,11 @@ from tiles import *
 
 class Maze:
     def __init__(self, maze) -> None:
-        self.maze = maze
-        self.objectMaze = False
-        self.start = False
-        self.end = False
+        self.maze: list[list[str]] = maze
+        self.objectMaze: list[list[Tiles]] = False
+        self.start: tuple = False
+        self.end: tuple = False
+        self.queue: list[Tiles] = []
     
     def transform(self) -> bool:
         objectMaze = []
@@ -30,7 +31,7 @@ class Maze:
         self.objectMaze = objectMaze
         return True
 
-    def gPropagation(self):
+    def gPropagation(self) -> bool:
         print(self.start)
         print(self.end)
         for i,line in enumerate(self.objectMaze):

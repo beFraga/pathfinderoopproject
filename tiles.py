@@ -1,12 +1,12 @@
 class Tiles:
     def __init__(self, pos, move, name) -> None:
-        self.f_val = 0
-        self.g_val = 0
-        self.pos = pos
-        self.move = move
-        self.name = name
+        self.f_val: int = 0
+        self.g_val: int = 0
+        self.pos: tuple = pos
+        self.move: int = move
+        self.name: str = name
     
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.pos} F{self.f_val} G{self.g_val} {self.name} | '
 
 startpoint = lambda pos: Tiles(pos, 0, "O")
@@ -17,4 +17,4 @@ water = lambda pos: Tiles(pos, 2, "~")
 bridge = lambda pos: Tiles(pos, 1, "=")
 helipoint = lambda pos: Tiles(pos, 0, "H")
 
-__all__ = ["startpoint", "endpoint", "block", "floortile", "water", "bridge", "helipoint"]
+__all__ = ["startpoint", "endpoint", "block", "floortile", "water", "bridge", "helipoint", "Tiles"]

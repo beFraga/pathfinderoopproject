@@ -1,14 +1,25 @@
 from maze import Maze, newMaze
 from vehicles import allV, Vehicles
 
+def println(string):
+    print(f'\n{string}')
+
 class Program:
     def __init__(self) -> None:
-        self.vehicle = None
-        self.distance = float('inf')
-        self.maze = []
+        self.vehicle: Vehicles = False
+        self.distance: int = float('inf')
+        self.maze: Maze = False
+
+    def selectV(self) -> Vehicles:
+        println('Select a vehicle: \n1. Car \n2. Helicopter')
+        nV = int(input())
+        if nV > len(allV) or nV < 1:
+            return 'Number not in range', False
+        self.vehicle = allV[nV - 1]
+        return self.vehicle, True
 
     def createMaze(self) -> str:
-        print('0. Premade map \nN M. Size of map to create')
+        println('0. Premade map \nN M. Size of map to create')
         v = list(map(int, input().split()))
 
         if v[0] == 0:
@@ -21,9 +32,6 @@ class Program:
         self.maze = Maze(myMaze)
         return 'Map created', True
 
-    def runA(self) -> str:
-        return 'To do runA', True
-
     def setMaze(self) -> str:
         if not self.maze.transform():
             return '\nWas given more or less than one start and end points', False
@@ -34,41 +42,26 @@ class Program:
         self.maze.console()
         return "\nMap transformed", True
 
-    def selectV(self) -> Vehicles:
-        print('Select a vehicle: \n1. Car \n2. Helicopter')
-        nV = int(input())
-        if nV > len(allV) or nV < 1:
-            return 'Number not in range', False
-        self.vehicle = allV[nV - 1]
-        return self.vehicle, True
+    def runA(self) -> str:
+        return 'To do runA', True
     
+    def finish(self) -> str:
+        return f'Distance: {self.distance} | Value: {self.distance * self.vehicle.price}', True
+
     def run(self) -> str:
-        msg, res = prog.selectV()
-        if not res:
-            return msg
-        else:
-            print(msg)
-        
-        msg, res = prog.createMaze()
-        if not res:
-            return msg
-        else:
-            print(msg)
+        functions = [prog.selectV, prog.createMaze, prog.setMaze, prog.runA, prog.finish]
+        for i in functions:
+            msg, res = i()
+            if not res:
+                return msg, False
+            else:
+                println(msg)
+            
+        return 'Program totally runned', True
 
-        msg, res = prog.setMaze()
-        if not res:
-            return msg
-        else:
-            print(msg)
-
-        msg, res = prog.runA()
-        if not res:
-            return msg
-        else:
-            print(msg)
-        
-        return 'Program totally runned'
-
-
-prog = Program()
-print(prog.run())
+while True:
+    prog = Program()
+    msg, res = prog.run()
+    println(msg)
+    if res:
+        break
