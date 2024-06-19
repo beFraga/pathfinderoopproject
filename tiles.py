@@ -1,13 +1,13 @@
 class Tiles:
     def __init__(self, pos, move, name) -> None:
-        self.f_val: int = 0
-        self.g_val: int = 0
-        self.pos: tuple = pos
-        self.move: int = move
-        self.name: str = name
+        self.f_val: int =   float('inf')
+        self.g_val: int =   0
+        self.pos:   tuple = pos
+        self.move:  int =   move
+        self.name:  str =   name
     
     def __str__(self) -> str:
-        return f'{self.pos} F{self.f_val} G{self.g_val} {self.name} | '
+        return f'{self.pos} F{self.f_val} G{self.g_val} {self.name} '
 
 startpoint = lambda pos: Tiles(pos, 0, "O")
 endpoint = lambda pos: Tiles(pos, 0, "X")

@@ -6,9 +6,9 @@ def println(string):
 
 class Program:
     def __init__(self) -> None:
-        self.vehicle: Vehicles = False
-        self.distance: int = float('inf')
-        self.maze: Maze = False
+        self.vehicle:   Vehicles =  False
+        self.distance:  int =       float('inf')
+        self.maze:      Maze =      False
 
     def selectV(self) -> Vehicles:
         println('Select a vehicle: \n1. Car \n2. Helicopter')
@@ -26,8 +26,10 @@ class Program:
             self.maze = Maze(newMaze)
             return 'Default map setted', True
         myMaze = []
-        for i in range(v[0]):
-            newLine = input('Line: ')[:v[1]].upper()
+        for i in range(abs(v[0])):
+            newLine = input('Line: ')[:abs(v[1])].upper()
+            if len(newLine) != abs(v[1]):
+                return f'The len of line must be {abs(v[1])}', False
             myMaze.append(newLine)
         self.maze = Maze(myMaze)
         return 'Map created', True
@@ -43,7 +45,12 @@ class Program:
         return "\nMap transformed", True
 
     def runA(self) -> str:
-        return 'To do runA', True
+        res = self.maze.aStar(self.vehicle)
+        if not res:
+            return 'Dont exists path in this map', False
+        self.distance = res
+        self.maze.console()
+        return f'aStar done', True
     
     def finish(self) -> str:
         return f'Distance: {self.distance} | Value: {self.distance * self.vehicle.price}', True

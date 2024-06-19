@@ -1,8 +1,8 @@
 class Vehicles:
     def __init__(self, mytype, price, name) -> None:
-        self.mytype: int = mytype
-        self.price: int = price
-        self.name: str = name
+        self.mytype:    int = mytype
+        self.price:     int = price
+        self.name:      str = name
 
     def moveFor(self, local) -> None: # to do
         print(f'You moved in a(n) {self.name} to {local}')
