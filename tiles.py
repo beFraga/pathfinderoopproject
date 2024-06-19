@@ -5,6 +5,9 @@ class Tiles:
         self.pos = pos
         self.move = move
         self.name = name
+    
+    def __str__(self):
+        return f'{self.pos} F{self.f_val} G{self.g_val} {self.name} | '
 
 startpoint = lambda pos: Tiles(pos, 0, "O")
 endpoint = lambda pos: Tiles(pos, 0, "X")

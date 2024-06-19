@@ -17,17 +17,25 @@ class Maze:
                     if self.start:
                         return False
                     else:
-                        self.start = True
+                        self.start = element.pos
                 if element.name == 'X':
                     if self.end:
                         return False
                     else:
-                        self.end = True
+                        self.end = element.pos
                 newLine.append(element)
             objectMaze.append(newLine)
         if not (self.end and self.start):
             return False
         self.objectMaze = objectMaze
+        return True
+
+    def gPropagation(self):
+        print(self.start)
+        print(self.end)
+        for i,line in enumerate(self.objectMaze):
+            for j,value in enumerate(line):
+                self.objectMaze[i][j].g_val = abs(self.end[0] - i) + abs(self.end[1] - j)
         return True
     
     def console(self) -> None:
@@ -35,7 +43,7 @@ class Maze:
             for i in self.objectMaze:
                 string = ""
                 for j in i:
-                    string += j.name
+                    string += j.__str__()
                 print(string)
 
 
