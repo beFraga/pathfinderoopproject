@@ -4,7 +4,7 @@ class Vehicles:
         self.price:     int = price
         self.name:      str = name
 
-    def moveFor(self, local) -> None: # to do
+    def moveFor(self, local) -> None:  # to do
         print(f'You moved in a(n) {self.name} to {local}')
 
     def __str__(self):
@@ -23,4 +23,10 @@ class Helicopter(Vehicles):
     def moveFor(self, local) -> None:
         print(f'You moved for a helipoint and after went to {local}')
 
-allV = [Car(), Helicopter()]
+
+class Truck(Vehicles):
+    def __init__(self, mytype=3, price=20, name='Truck') -> None:
+        super().__init__(mytype, price, name)
+
+
+allV = [Car(), Helicopter(), Truck()]

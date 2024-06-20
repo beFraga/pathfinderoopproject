@@ -1,17 +1,19 @@
 from maze import Maze, newMaze
 from vehicles import allV, Vehicles
 
+
 def println(string):
     print(f'\n{string}')
 
+
 class Program:
     def __init__(self) -> None:
-        self.vehicle:   Vehicles =  False
-        self.distance:  int =       float('inf')
-        self.maze:      Maze =      False
+        self.vehicle:   Vehicles = False
+        self.distance:  int = float('inf')
+        self.maze:      Maze = False
 
     def selectV(self) -> Vehicles:
-        println('Select a vehicle: \n1. Car \n2. Helicopter')
+        println('Select a vehicle: \n1. Car \n2. Helicopter \n3.Truck')
         nV = int(input())
         if nV > len(allV) or nV < 1:
             return 'Number not in range', False
@@ -19,12 +21,12 @@ class Program:
         return self.vehicle, True
 
     def createMaze(self) -> str:
-        println('0. Premade map \nN M. Size of map to create')
+        println('0. Premade map \nN M. Size of map to create (N x M grid)')
         v = list(map(int, input().split()))
 
         if v[0] == 0:
             self.maze = Maze(newMaze)
-            return 'Default map setted', True
+            return 'Default map has been set', True
         myMaze = []
         for i in range(abs(v[0])):
             newLine = input('Line: ')[:abs(v[1])].upper()
@@ -47,24 +49,26 @@ class Program:
     def runA(self) -> str:
         res = self.maze.aStar(self.vehicle)
         if not res:
-            return 'Dont exists path in this map', False
+            return 'There is no possible path in this map', False
         self.distance = res
         self.maze.console()
         return f'aStar done', True
-    
+
     def finish(self) -> str:
         return f'Distance: {self.distance} | Value: {self.distance * self.vehicle.price}', True
 
     def run(self) -> str:
-        functions = [prog.selectV, prog.createMaze, prog.setMaze, prog.runA, prog.finish]
+        functions = [prog.selectV, prog.createMaze,
+                     prog.setMaze, prog.runA, prog.finish]
         for i in functions:
             msg, res = i()
             if not res:
                 return msg, False
             else:
                 println(msg)
-            
-        return 'Program totally runned', True
+
+        return 'Program totally executed', True
+
 
 while True:
     prog = Program()
