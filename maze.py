@@ -1,19 +1,20 @@
 from tiles import *
 
+
 class Maze:
     def __init__(self, maze) -> None:
-        self.maze:          list[str] =         maze
+        self.maze:          list[str] = maze
         self.objectMaze:    list[list[Tiles]] = False
-        self.start:         tuple =             False
-        self.end:           tuple =             False
-        self.queue:         list[Tiles] =       []
+        self.start:         tuple = False
+        self.end:           tuple = False
+        self.queue:         list[Tiles] = []
 
     def transform(self) -> bool:
         objectMaze = []
-        for i,line in enumerate(self.maze):
+        for i, line in enumerate(self.maze):
             newLine = []
-            for j,value in enumerate(line):
-                element = types.get(value, types["default"])((i,j))
+            for j, value in enumerate(line):
+                element = types.get(value, types["default"])((i, j))
                 if element.name == 'O':
                     if self.start:
                         return False
@@ -35,13 +36,14 @@ class Maze:
     def gPropagation(self) -> bool:
         print(self.start)
         print(self.end)
-        for i,line in enumerate(self.objectMaze):
-            for j,value in enumerate(line):
-                self.objectMaze[i][j].g_val = abs(self.end[0] - i) + abs(self.end[1] - j)
+        for i, line in enumerate(self.objectMaze):
+            for j, value in enumerate(line):
+                self.objectMaze[i][j].g_val = abs(
+                    self.end[0] - i) + abs(self.end[1] - j)
         return True
 
     def aStar(self, vehicle) -> bool:
-        ij = [(0, -1), (-1, 0), (1,0), (0,1)]
+        ij = [(0, -1), (-1, 0), (1, 0), (0, 1)]
         while True:
             print('Iteration')
             if len(self.queue) == 0:
@@ -49,7 +51,7 @@ class Maze:
             cur = self.queue[0]
             if cur == self.end:
                 return self.objectMaze[cur[0]][cur[1]].f_val
-            for i,j in ij:
+            for i, j in ij:
                 if cur[0] + i < 0 or cur[0] + i > (len(self.maze) - 1) or cur[1] + j < 0 or cur[1] + j > (len(self.maze[0]) - 1):
                     print('not', cur[0] + i, cur[1] + j)
                     continue
@@ -79,7 +81,6 @@ class Maze:
                     self.queue.pop(i)
                     break
 
-
     def console(self) -> None:
         if self.objectMaze:
             for i in self.objectMaze:
@@ -87,6 +88,7 @@ class Maze:
                 for j in i:
                     string += j.__str__()
                 print(string)
+
 
 newMaze = [
     "||pppppp||",
@@ -97,4 +99,7 @@ newMaze = [
 
 ]
 
-types = {"O": startpoint, "X": endpoint, "|": block, "~": water, "=": bridge, "H": helipoint, "default": floortile}
+# teste
+
+types = {"O": startpoint, "X": endpoint, "|": block, "~": water,
+         "=": bridge, "H": helipoint, "default": floortile}
