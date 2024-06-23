@@ -45,35 +45,43 @@ class Maze:
     def aStar(self, vehicle) -> bool:
         ij = [(0, -1), (-1, 0), (1, 0), (0, 1)]
         while True:
-            print('Iteration')
             if len(self.queue) == 0:
                 return False
             cur = self.queue[0]
+            print("Cur: ",cur)
+            curobj = self.objectMaze[cur[0]][cur[1]]
+            print(curobj.path)
             if cur == self.end:
-                return self.objectMaze[cur[0]][cur[1]].f_val
+                return curobj.f_val, curobj.path
             for i, j in ij:
                 if cur[0] + i < 0 or cur[0] + i > (len(self.maze) - 1) or cur[1] + j < 0 or cur[1] + j > (len(self.maze[0]) - 1):
-                    print('not', cur[0] + i, cur[1] + j)
                     continue
                 if cur == self.start:
                     n1 = float('-inf')
                     n2 = 0
                 else:
-                    n1 = self.objectMaze[cur[0]][cur[1]].f_val
+                    n1 = curobj.f_val
                     n2 = n1
                 if self.objectMaze[cur[0] + i][cur[1] + j].f_val < n1 + 1:
                     continue
-                self.objectMaze[cur[0] + i][cur[1] + j].f_val = n2 + 1
                 nx = self.objectMaze[cur[0] + i][cur[1] + j]
+                if vehicle.mytype < nx.move:
+                    continue
+                self.objectMaze[cur[0] + i][cur[1] + j].f_val = n2 + 1
+                self.objectMaze[cur[0] + i][cur[1] + j].path = curobj.path
+                if cur != self.start and cur not in curobj.path:
+                    self.objectMaze[cur[0] + i][cur[1] + j].path.append(cur)
+                print(nx)
+                print(nx.path)
                 pseudoqueue = []
                 inserted = False
                 for k in self.queue:
                     v = self.objectMaze[k[0]][k[1]]
-                    if (n1 + v.g_val > nx.f_val + nx.g_val and not inserted) and nx.pos not in pseudoqueue and vehicle.mytype >= nx.move:
+                    if (n1 + v.g_val > nx.f_val + nx.g_val and not inserted) and nx.pos not in pseudoqueue:
                         pseudoqueue.append(nx.pos)
                         inserted = True
                     pseudoqueue.append(k)
-                    if k == self.queue[len(self.queue) - 1] and not inserted and nx.pos not in pseudoqueue and vehicle.mytype >= nx.move:
+                    if k == self.queue[len(self.queue) - 1] and not inserted and nx.pos not in pseudoqueue:
                         pseudoqueue.append(nx.pos)
                 self.queue = pseudoqueue
             for i in range(len(self.queue)):

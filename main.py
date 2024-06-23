@@ -11,6 +11,7 @@ class Program:
         self.vehicle:   Vehicles = False
         self.distance:  int = float('inf')
         self.maze:      Maze = False
+        self.path:      list[tuple] = False
 
     def selectV(self) -> Vehicles:
         println('Select a vehicle: \n1. Car \n2. Helicopter \n3.Truck')
@@ -50,12 +51,12 @@ class Program:
         res = self.maze.aStar(self.vehicle)
         if not res:
             return 'There is no possible path in this map', False
-        self.distance = res
+        self.distance, self.path = res
         self.maze.console()
         return f'aStar done', True
 
     def finish(self) -> str:
-        return f'Distance: {self.distance} | Value: {self.distance * self.vehicle.price}', True
+        return f'Distance: {self.distance} | Value: {self.distance * self.vehicle.price} | Path: {self.path}', True
 
     def run(self) -> str:
         functions = [prog.selectV, prog.createMaze,

@@ -25,7 +25,7 @@ class Helicopter(Vehicles):
 
 
 class Truck(Vehicles):
-    def __init__(self, mytype=3, price=20, name='Truck') -> None:
+    def __init__(self, mytype=0, price=20, name='Truck') -> None:
         super().__init__(mytype, price, name)
 
 
