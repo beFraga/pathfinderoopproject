@@ -39,28 +39,26 @@ class Program:
 
     def setMaze(self) -> str:
         if not self.maze.transform():
-            return '\nWas given more or less than one start and end points', False
+            return '\nWas given more or less than one start and end points or more than one helipoint', False
+        if not self.maze.helipoint and self.vehicle.name == 'Helicopter':
+            return 'Helipoint not setted', False
 
-        if not self.maze.gPropagation():
-            return '??', False
-
-        self.maze.console()
+        Maze.console(self.maze.objectMaze, False)
         return "\nMap transformed", True
 
     def runA(self) -> str:
-        res = self.maze.aStar(self.vehicle)
+        msg, res = self.vehicle.moveFor(self.maze)
         if not res:
-            return 'There is no possible path in this map', False
-        self.distance, self.path = res
-        self.maze.console()
+            return msg, False
+        self.distance, self.path = msg
+        Maze.console(self.maze.objectMaze, self.path)
         return f'aStar done', True
 
     def finish(self) -> str:
-        return f'Distance: {self.distance} | Value: {self.distance * self.vehicle.price} | Path: {self.path}', True
+        return f'Distance: {self.distance} | Value: {self.distance * self.vehicle.price}', True
 
     def run(self) -> str:
-        functions = [prog.selectV, prog.createMaze,
-                     prog.setMaze, prog.runA, prog.finish]
+        functions = [prog.selectV, prog.createMaze, prog.setMaze, prog.runA, prog.finish]
         for i in functions:
             msg, res = i()
             if not res:
