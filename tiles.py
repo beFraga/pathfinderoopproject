@@ -16,6 +16,6 @@ block       = lambda pos: Tiles(pos, 2, "|")
 floortile   = lambda pos: Tiles(pos, 0, "#")
 water       = lambda pos: Tiles(pos, 2, "~")
 bridge      = lambda pos: Tiles(pos, 1, "=")
-helipoint   = lambda pos: Tiles(pos, 2, "H")
+helipoint   = lambda pos: Tiles(pos, 0, "H")
 
 __all__ = ["startpoint", "endpoint", "block", "floortile", "water", "bridge", "helipoint", "Tiles"]

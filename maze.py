@@ -101,21 +101,13 @@ class Maze:
     
     @staticmethod
     def console(mz: list[list[Tiles]], path: list[tuple]) -> None:
-        if not path:
-            for i in mz:
-                string = ""
-                for j in i:
-                    string += j.__str__()
-                print(string)
-        else:
-            for i in mz:
-                string = ""
-                for j in i:
-                    if j.pos in path:
-                        string += 'o'
-                    else:
-                        string += j.__str__()
-                print(string)
+        for i in mz:
+            for j in i:
+                color = colors.get(j.name, '?')
+                if j.pos in path:
+                    color = colors['o']
+                print(f'{color}  ', end='')
+            print('\033[0m', end='\n')
 
 
 newMaze = [
@@ -126,4 +118,19 @@ newMaze = [
     "||X||~|O||",
 ]
 
+
+newMaze = [
+    "||||||||||||||||||||||||||||||||||||||||||||||||||",
+    "||||||||||||||||||||||||||||||||||||||||||||||||||",
+    "|Xpppppppppppp|||||||||pppppppppppppppp|||||||||||",
+    "|||||||||||||p|||||||||p||||||||||||||p|||||||||||",
+    "|||||||||||||p||pppppppp||||||||||||||p|||||||||||",
+    "|||||||||||||p||p|||||||||||pppppp||||p|||||||||||",
+    "||||||||ppppppppp||||||||||||||||p||||p|||||||||||",
+    "||||||||p|||||~~~~~~~~~~~~~~~~~~~p||||ppppH|||||||",
+    "||||||||pppppp===================pppppp|||||||||||",
+    "||||||||||||||~~~~~~~~~~~~~~~~~~~|||||O|||||||||||",
+]
+
 types = {"O": startpoint, "X": endpoint, "|": block, "~": water, "=": bridge, "H": helipoint, "default": floortile}
+colors = {'O': '\033[42m', 'X': '\033[45m', '|': '\033[40m', '~': '\033[46m', '=': '\033[47m', 'H': '\033[41m', '#': '\033[44m', 'o': '\033[43m'}

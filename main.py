@@ -43,7 +43,7 @@ class Program:
         if not self.maze.helipoint and self.vehicle.name == 'Helicopter':
             return 'Helipoint not setted', False
 
-        Maze.console(self.maze.objectMaze, False)
+        Maze.console(self.maze.objectMaze, [])
         return "\nMap transformed", True
 
     def runA(self) -> str:

@@ -25,9 +25,10 @@ class Helicopter(Vehicles):
         super().__init__(mytype, price, name)
 
     def moveFor(self, maze) -> None:
-        res1 = maze.aStar(self.mytype, maze.start, maze.helipoint)
+        res1 = maze.aStar(1, maze.start, maze.helipoint)
         if not res1:
             return 'There is no possible path to helipoint in this map', False
+        print('ok')
         res2 = maze.aStar(self.mytype, maze.helipoint, maze.end)
         if not res2:
             return 'There is no possible path to end in this map', False
