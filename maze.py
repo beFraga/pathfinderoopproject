@@ -7,7 +7,7 @@ class Maze:
         self.start:         tuple = False
         self.end:           tuple = False
         self.helipoint:     tuple = False
-        self.queue:         list[Tiles] = []
+        self.queue:         list[tuple] = []
 
     def transform(self) -> bool:
         objectMaze = []
@@ -38,7 +38,7 @@ class Maze:
         return True
 
     @staticmethod
-    def gPropagation(maze, end) -> bool:
+    def gPropagation(maze, end) -> list[list[Tiles]]:
         for i, line in enumerate(maze):
             for j, value in enumerate(line):
                 maze[i][j].g_val = abs(end[0] - i) + abs(end[1] - j)

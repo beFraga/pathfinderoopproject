@@ -4,7 +4,7 @@ class Vehicles:
         self.price:     int = price
         self.name:      str = name
 
-    def moveFor(self, maze) -> None:  # to do
+    def moveFor(self, maze) -> None:
         res = maze.aStar(self.mytype, maze.start, maze.end)
         if not res:
             return 'There is no possible path in this map', False
